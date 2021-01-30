@@ -1,0 +1,48 @@
+@import 'styles.settings';
+
+.game{
+  background: $secondary;
+  &__canvas{
+    width: 50vw;
+    height: 50vh;
+    outline: none;
+  }
+}
+
+.object-container {
+  background: $brown;
+}
+
+.question-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background: $secondary;
+  justify-self: flex-start;
+  border: 1px solid $primary;
+}
+
+.question{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $primary;
+  cursor: pointer;
+  &:hover {
+    background: $hover;
+  }
+}
+
+.object {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $primary;
+  border-radius: 4px;
+  height: 64px;
+}
+
+.portrait{
+  width: 100%;
+  border: 1px solid $primary;
+}

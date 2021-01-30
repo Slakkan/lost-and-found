@@ -1,0 +1,15 @@
+# File created by ZBrush
+# ToolType: PolyMesh3D
+# www.zbrush.com
+newmtl defaultMat
+
+Ns 162.562509
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+map_Kd valigiaMarrone.bmp
