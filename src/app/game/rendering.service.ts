@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ArcRotateCamera, AssetsManager, Engine, HemisphericLight, Material, Mesh, Scene, Vector3 } from 'babylonjs';
-import { GLTFFileLoader, MTLFileLoader, OBJFileLoader } from 'babylonjs-loaders';
+import { ArcRotateCamera, AssetsManager, Color4, Engine, Material, Mesh, Scene, StandardMaterial, Texture, Vector3 } from 'babylonjs';
+import { MTLFileLoader, OBJFileLoader } from 'babylonjs-loaders';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +10,10 @@ export class RenderingService {
   engine!: Engine;
   scene!: Scene;
   camera!: ArcRotateCamera;
-  light!: HemisphericLight;
   objLoader = new OBJFileLoader();
   mtlLoader = new MTLFileLoader();
-  gltfLoader = new GLTFFileLoader();
+  lastLoadedMesh!: Mesh;
+  lastLoadedMaterial!: Material;
 
   constructor() { }
 
@@ -21,15 +21,15 @@ export class RenderingService {
     this.canvas = canvas;
     this.engine = new Engine(canvas);
     this.createScene();
-    this.engine.runRenderLoop(() => this.scene.render());
+    this.engine.runRenderLoop(() => {this.scene.render();});
   }
 
   createScene(): void {
     const scene = new Scene(this.engine);
+    scene.clearColor = new Color4(0,0,0,0)
     this.camera = new ArcRotateCamera('camera', 0, 1, 10, Vector3.Zero(), scene);
     this.camera.setTarget(Vector3.Zero());
     this.camera.attachControl(this.canvas);
-    this.light = new HemisphericLight('light1', new Vector3(0, 1, 0), scene);
     this.scene = scene;
   }
 
@@ -37,26 +37,35 @@ export class RenderingService {
     this.engine.resize();
   }
 
-  loadMesh(meshName: string) {
+  loadMesh(asset: string) {
     const assetsManager = new AssetsManager(this.scene);
-    const url = './assets/3D/' + meshName + '/';
-    const name = meshName + '.obj';
+    const url = './assets/3D/' + asset + '/';
+    const name = asset + '.obj';
     const meshTask = assetsManager.addMeshTask('', '', url, name);
     meshTask.onSuccess = (task) => {
-      const potato = Mesh.MergeMeshes(task.loadedMeshes as Mesh[], true);
-      console.log(potato);
-      potato?.material;
+      const mesh = Mesh.MergeMeshes(task.loadedMeshes as Mesh[], true) as Mesh;
+      this.lastLoadedMesh = mesh;
     };
     assetsManager.load();
   }
 
-  loadTexture(textureName: string) {
+  loadTexture(asset: string, textureName: string) {
     const assetsManager = new AssetsManager(this.scene);
-    const url = './assets/3D/' + textureName + '/' + textureName + '.mtl';
+    const url = './assets/3D/' + asset + '/' + textureName + '.bmp';
     const meshTask = assetsManager.addTextureTask('', url);
     meshTask.onSuccess = (task) => {
-      console.log(task);
+      const mat = new StandardMaterial("defaultMat", this.scene)
+      mat.emissiveTexture = task.texture
+      this.lastLoadedMaterial = mat;
+      this.lastLoadedMesh.material = mat;
     };
     assetsManager.load();
+  }
+
+  changeObject(asset: string, texture: string) {
+    this.engine.dispose()
+    this.createEngine(this.canvas)
+    this.loadMesh(asset);
+    this.loadTexture(asset, texture)
   }
 }

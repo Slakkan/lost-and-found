@@ -3,4 +3,7 @@
 $primary: rgb(231, 231, 231);
 $secondary: rgb(70, 67, 67);
 $hover: rgb(72, 170, 226);
-$brown: rgb(128, 82, 52)
+$brown: rgb(128, 82, 52);
+
+$primary-alpha: rgba($color: $primary, $alpha: 0.5);
+$secondary-alpha: rgba($color: $hover, $alpha: 0.5);

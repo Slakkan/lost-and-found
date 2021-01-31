@@ -1,22 +1,83 @@
-<div class="game row">
-  <div class="col-4 offset-1 p-0"><img class="portrait" src="./assets/2D/char/morte.png" alt=""></div>
-  <canvas class="col-6 p-0" #gameCanvas></canvas>
-  <div class="col-12">
-    <div class="row">
-      <div class="col-4 p-0 offset-1">
-        <div class="question-container h-100">
-          <div class="question h-100">Di che colore è?</div>
-          <div class="question h-100">Segni particolari?</div>
-          <div class="question h-100">Cosa contiene?</div>
+<div class="game row position-relative">
+  <div class="col-5 offset-1 p-0">
+    <div class="d-flex justify-content-center">
+      <div class="dialog p-2 position-absolute" style="top: 8px;">
+        {{ dialog }}
+      </div>
+      <img class="h-75 position-absolute" style="bottom: 0;" [src]="userList[0].asset" alt="portrait">
+      <img (click)="sendAway()" class="ui--md position-absolute" style="bottom: 8px; left: 8px;" src="./assets/2D/ui/congedoIcon.png"
+        alt="rifiuta">
+      <img (click)="giveItem()" class="ui--md position-absolute" style="bottom: 8px; right: 8px;" src="./assets/2D/ui/consegnaIcon.png"
+        alt="consegna">
+    </div>
+    <img class="background h-100" src="./assets/2D/ui/Sfondo.jpg" alt="background" #background>
+  </div>
+  <div class="canvas-container position-relative col-5 p-0">
+    <img (click)="onXRayActive()" class="ui position-absolute" style="top: 8px;left: 24px;" src="./assets/2D/ui/xrayIcon.png" alt="xRay">
+    <div class="xRay-text w-100 position-absolute" style="top: 8px;">{{ xRayResult }}</div>
+    <div class="xRayBar-container position-absolute" style="top: 8px; right: 0px;">
+      <img class="xRayBar position-absolute" style="width: 100%;" src="./assets/2D/ui/barraVuota.png"
+        alt="fillBarBackground">
+      <img class="xRayBar xRayBar--fill position-absolute" [ngStyle]="{'width': xRayPercentage + '%'}"
+        src="./assets/2D/ui/barraFill.png" alt="fillBar">
+    </div>
+    <img class="ui position-absolute" style="bottom: 0; left: 24px;" src="./assets/2D/ui/zoomareaIcon.png" alt="zoom">
+    <div class="hp-container p-2 position-absolute">
+      <img class="ui pl-2" [src]="'./assets/2D/ui/' + (lives > 2 ? 'vita.png' : 'vitaPersa.png') " alt="life">
+      <img class="ui pl-2" [src]="'./assets/2D/ui/' + (lives > 1 ? 'vita.png' : 'vitaPersa.png') " alt="life">
+      <img class="ui pl-2" [src]="'./assets/2D/ui/' + (lives > 0 ? 'vita.png' : 'vitaPersa.png') " alt="life">
+    </div>
+    <div class="d-flex">
+      <canvas 
+      [ngStyle]="{'height': canvasHeight +'px'}"
+      class="canvas w-100"
+      #gameCanvas></canvas>
+    </div>
+  </div>
+  <div class="col-10 offset-1">
+    <div class="row object-container pt-2 pb-4">
+      <div class="class question-floating-frame col-5 p-0 offset-1 position-absolute">
+        <div class="question-container w-75 h-100">
+          <div class="question mb-1 py-2" (click)="askForColor()">Di che colore è?</div>
+          <div class="question mb-1 py-2" (click)="askForDetails()">Segni particolari?</div>
+          <div class="question mb-1 py-2" (click)="askForContent()">Cosa contiene?</div>
         </div>
       </div>
-      <div class="col-6">
-        <div class="row object-container py-4">
-          <div class="object col-2 mx-2">OBJ 1</div>
-          <div class="object col-2 mx-2">OBJ 2</div>
-          <div class="object col-2 mx-2">OBJ 3</div>
-          <div class="object col-2 mx-2">OBJ 4</div>
-          <div class="object col-2 mx-2">OBJ 5</div>
+      <div class="col-7 d-flex offset-5 justify-content-around">
+        <div class="object">
+          <img class="ui--big" 
+          [src]="'assets/2D/icons/' + inventory[0].asset + '.png'" 
+          [alt]="inventory[0].asset"
+          (click)="onObjectSelect(0)"
+          >
+        </div>
+        <div class="object">
+          <img class="ui--big" 
+          [src]="'assets/2D/icons/' + inventory[1].asset + '.png'" 
+          [alt]="inventory[1].asset"
+          (click)="onObjectSelect(1)"
+          >
+        </div>
+        <div class="object">
+          <img class="ui--big" 
+          [src]="'assets/2D/icons/' + inventory[2].asset + '.png'" 
+          [alt]="inventory[2].asset"
+          (click)="onObjectSelect(2)"
+          >
+        </div>
+        <div class="object">
+          <img class="ui--big" 
+          [src]="'assets/2D/icons/' + inventory[3].asset + '.png'" 
+          [alt]="inventory[3].asset"
+          (click)="onObjectSelect(3)"
+          >
+        </div>
+        <div class="object">
+          <img class="ui--big" 
+          [src]="'assets/2D/icons/' + inventory[4].asset + '.png'" 
+          [alt]="inventory[4].asset"
+          (click)="onObjectSelect(4)"
+          >
         </div>
       </div>
     </div>
