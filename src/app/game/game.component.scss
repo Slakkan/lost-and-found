@@ -1,0 +1,136 @@
+@import "styles.settings";
+
+.game {
+  background: $secondary;
+  height: 75vh;
+  &__canvas {
+    width: 50vw;
+    height: 50vh;
+    outline: none;
+  }
+}
+
+.dialog{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: $secondary;
+  font-weight: bold;
+  width: 75%;
+  height: 48px;
+  font-size: 14px;
+  line-height: 18px;
+  color: $secondary;
+  background-image: url("/assets/2D/ui/dialogo.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.canvas {
+  display: flex;
+  background-image: url("/assets/2D/ui/xray.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  outline: none;
+}
+
+.background{
+  border: 1px solid $primary;
+  width: 100%;
+}
+
+.hp-container{
+  bottom: 0;
+  right: 0;
+}
+
+.ui{
+  width: 32px;
+  &--md{
+    width: 48px;
+  }
+  &--big{
+    height: 64px;
+  }
+}
+
+.xRay-text{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 10000000;
+  color: $primary;
+  font-weight: bold;
+  height: 24;
+}
+
+.xRayBar-container {
+  width: calc(100% - 56px);
+}
+.xRayBar {
+  left: 0;
+  top: 0;
+  height: 32px;
+  &--fill{
+    z-index: 100000;
+  }
+}
+
+.question-floating-frame{
+  z-index: 10000;
+}
+
+.question-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background: none;
+  justify-self: flex-start;
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $primary;
+  font-weight: bold;
+  background-image: url("/assets/2D/ui/questionButton.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    color: $hover;
+  }
+  &:active {
+    background-image: url("/assets/2D/ui/questionButtonActive.png");
+  }
+}
+
+.object-container {
+  display: flex;
+  align-items: center;
+  background-image: url("/assets/2D/ui/bancone1080.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 180px;
+}
+
+.object {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $primary-alpha;
+  border-radius: 8px;
+  height: 64px;
+  width: 64px;
+  z-index: 10000000;
+  &:hover {
+    background: $secondary-alpha;
+  }
+}

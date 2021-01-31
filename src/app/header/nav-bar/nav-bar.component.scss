@@ -1,0 +1,17 @@
+@import 'styles.settings';
+
+.nav{
+  &__link{
+    outline: none;
+    background: $secondary;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    color: $primary;
+    &:hover{
+      background: $hover;
+      color: $secondary;
+    }
+  }
+}
